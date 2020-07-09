@@ -35,7 +35,7 @@ CREATE TABLE `todo_items` (
 
 LOCK TABLES `todo_items` WRITE;
 /*!40000 ALTER TABLE `todo_items` DISABLE KEYS */;
-
+INSERT INTO `todo_items` VALUES ('a6f38798-44e1-4160-a0a2-0c69eef90ca0','Teste 1',0),('a1bb98ee-9eda-4523-8b65-163b16474e95','Teste 2 marcado',1);
 /*!40000 ALTER TABLE `todo_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -6,9 +6,9 @@ services:
         command: sh -c "yarn install && yarn run dev"
         ports:
             - 3000:3000
-        working_dir: /app
+        working_dir: /app_bkp
         volumes:
-            - ./:/app
+            - ./:/app_bkp
         environment:
             MYSQL_HOST: mysql
             MYSQL_USER: root
@@ -16,13 +16,13 @@ services:
             MYSQL_DB: todos
     mysql:
         image: mysql:5.7
-        restart: always
-        container_name: db-mysql
+        #restart: always
         volumes:
-            - ./resources/docker-sql:/docker-entrypoint-initdb.d
-            # - todo-mysql-data:/var/lib/mysql
+            # - ./resources/docker-sql:/docker-entrypoint-initdb.d
+            # cat resources/docker-sql/init.sql | docker exec -i 39d446ec8bd8 /usr/bin/mysql -u root --password=secret todos
+            - todo-mysql-data:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_DATABASE: todos
 volumes:
-    todo-mysql-data: {}
+    todo-mysql-data:
