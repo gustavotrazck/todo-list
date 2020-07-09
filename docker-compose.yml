@@ -6,9 +6,9 @@ services:
         command: sh -c "yarn install && yarn run dev"
         ports:
             - 3000:3000
-        working_dir: /app_bkp
+        working_dir: /app
         volumes:
-            - ./:/app_bkp
+            - ./:/app
         environment:
             MYSQL_HOST: mysql
             MYSQL_USER: root
@@ -18,11 +18,24 @@ services:
         image: mysql:5.7
         #restart: always
         volumes:
-            # - ./resources/docker-sql:/docker-entrypoint-initdb.d
-            # cat resources/docker-sql/init.sql | docker exec -i 39d446ec8bd8 /usr/bin/mysql -u root --password=secret todos
+            # cat resources/docker-sql/init.sql | docker exec -i 39d446ec8bd8 sh -c 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" todos'
             - todo-mysql-data:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_DATABASE: todos
+        # healthcheck:
+        #     test: "/usr/bin/mysql --user=root --password=secret --execute \"SHOW DATABASES;\""
+        #     interval: 5s
+        #     timeout: 20s
+        #     retries: 10
+    mysqlinit:
+        image: mysql:5.7
+        volumes:
+            - ./resources/docker-sql/init.sql:/dump/init.sql
+            # - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+        depends_on:
+            - mysql
+        # command: ["./wait-for-it.sh", "mysql:3306", "--", "mysql -h mysql -uroot -psecret todos < /dump/init.sql"]
+        command: bash -c "sleep 5 && mysql -h mysql -uroot -psecret todos < /dump/init.sql"
 volumes:
     todo-mysql-data:
