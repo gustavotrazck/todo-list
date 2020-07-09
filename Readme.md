@@ -13,7 +13,5 @@ Docker tutorial, with persistent data (Mysql)
 
 Everything should works on  http://localhost:3000/
 
-Please make sure to update tests as appropriate.
-
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
