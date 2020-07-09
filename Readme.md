@@ -5,7 +5,7 @@ Docker tutorial, with persistent data (Mysql)
 ## Installation
 
  - Install docker or use https://labs.play-with-docker.com/
- - clone de repo
+ - clone the repository
  - docker-compose up -d
 
 
